@@ -18,5 +18,7 @@ window 10
 3、支持操作：看源码。。。<p>
 4、运行StartTest.xml或编写ant编译配置文件运行<p>
 5、多设备参照testNG多线程
+# 测试用例
+![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/test-output/testcaseDemo.png)
 # 测试报告展示
 ![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/test-output/test.png)
