@@ -69,7 +69,6 @@ public class IOMananger {
 
 	public static Object[][] readExcelDataXlsx(String sheetName,String path) throws IOException {
 		InputStream is = new FileInputStream(path);
-		@SuppressWarnings("resource")
 		XSSFWorkbook workbook = new XSSFWorkbook(is);//读取Excel
 		XSSFSheet sheet = workbook.getSheet(sheetName);//读取sheet
 		if(sheet!=null){
@@ -85,15 +84,16 @@ public class IOMananger {
 					}
 				}	
 			}
+			workbook.close();
 			return user;
 		}else{
 			System.out.println(sheet+"is null!");
+			workbook.close();
 			return null;
 		}	
 	}
 	public static Object[][] readExcelDataXls(String sheetName,String path) throws IOException {
 		InputStream is = new FileInputStream(path);
-		@SuppressWarnings("resource")
 		HSSFWorkbook workbook = new HSSFWorkbook(is);//读取Excel
 		HSSFSheet sheet = workbook.getSheet(sheetName);//读取sheet
 		if(sheet!=null){
@@ -109,9 +109,11 @@ public class IOMananger {
 					}
 				}	
 			}
+			workbook.close();
 			return user;
 		}else{
 			System.out.println(sheet+"is null!");
+			workbook.close();
 			return null;
 		}	
 	}
@@ -120,7 +122,6 @@ public class IOMananger {
 	public static List<String> checkExcelDataXls( String cellContent) throws IOException {
 		InputStream is = new FileInputStream(TestListener.CasePath);
 		List<String> list = new LinkedList<String>();
-		@SuppressWarnings("resource")
 		HSSFWorkbook workbook = new HSSFWorkbook(is);//读取Excel
 		HSSFSheet sheet = workbook.getSheet("TestCases");//读取sheet
 		if(sheet!=null){
@@ -131,12 +132,14 @@ public class IOMananger {
 							for(Cell cell2:row){
 								list.add(cell2.toString());
 							}
+							workbook.close();
 							return list; 
 						}
 					}
 				}
 			}             
 		}
+		workbook.close();
 		return null;
 	}
 
@@ -144,7 +147,6 @@ public class IOMananger {
 	public static List<String> checkExcelDataXlsx( String cellContent) throws IOException {
 		InputStream is = new FileInputStream(TestListener.CasePath);
 		List<String> list = new LinkedList<String>();
-		@SuppressWarnings("resource")
 		XSSFWorkbook workbook = new XSSFWorkbook(is);//读取Excel
 		XSSFSheet sheet = workbook.getSheet("TestCases");//读取sheet
 		if(sheet!=null){
@@ -155,12 +157,14 @@ public class IOMananger {
 							for(Cell cell2:row){
 								list.add(cell2.toString());
 							}
+							workbook.close();
 							return list; 
 						}
 					}
 				}
 			}             
 		}
+		workbook.close();
 		return null;
 	}
 
