@@ -23,7 +23,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.xiaoM.Common.Utils.IOMananger;
-import com.xiaoM.Common.Utils.TestListener;
 
 public class TestReport implements IReporter {
 
@@ -73,7 +72,7 @@ public class TestReport implements IReporter {
 		extent.setReportUsesManualConfiguration(true);
 	}  
 	private void buildTestNodes(IResultMap tests, Status status) {
-		ExtentTest test =null;
+		
 		String DeviceName = null;
 		if (tests.size() > 0) {
 			int i = 0;
@@ -83,11 +82,12 @@ public class TestReport implements IReporter {
 				case 1://成功用例
 					if(TestListener.TestType.equals("RM")){
 						DeviceName = TestListener.mobileSuccessMessageList.get(i);
-						String CaseName = result.getParameters()[1].toString();
-						test = extent.createTest(DeviceName+"-"+CaseName);
-						test.assignCategory(DeviceName);
+						ExtentTest test = extent.createTest(DeviceName);
+						test.assignCategory(DeviceName.split("-")[0]);
 						test.log(status, TestListener.ResourceList.get(i).split(":::")[1]);
 						String logName = DeviceName.split("\\(")[0];
+						test.getModel().setStartTime(getTime(result.getStartMillis()));
+						test.getModel().setEndTime(getTime(result.getEndMillis()));
 						test.log(status, "<span><a href=\"../test-output/log/DevicesRunLog/"+logName+".txt\">执行日志</a></span>");
 						try {
 							test.addScreenCaptureFromPath("../test-output/snapshot/"+logName+"_CPU.jpg");
@@ -97,11 +97,13 @@ public class TestReport implements IReporter {
 						}
 					}else{
 						DeviceName = TestListener.mobileSuccessMessageList.get(i);
-						String CaseName1 = result.getParameters()[1].toString();
-						test = extent.createTest(DeviceName+"-"+CaseName1);
+						ExtentTest test = extent.createTest(DeviceName);
 						String DeviceName2 = DeviceName.split("\\(")[0];
+						String CaseName1 = DeviceName.split("\\)-")[1];
 						String txtName1 = DeviceName2+"_"+CaseName1;
-						test.assignCategory(DeviceName);
+						test.assignCategory(DeviceName.split("-")[0]);
+						test.getModel().setStartTime(getTime(result.getStartMillis()));
+						test.getModel().setEndTime(getTime(result.getEndMillis()));
 						try {
 							IOMananger.DealwithSuRunLog(TestListener.ProjectPath,DeviceName2, CaseName1);
 						} catch (IOException e1) {
@@ -114,11 +116,13 @@ public class TestReport implements IReporter {
 					break;
 				case 2://失败用例
 					String[] testDevice = TestListener.messageList.get(j).split(":::");//获取设备测试资料
-					String CaseName2 = result.getParameters()[1].toString();
+					String CaseName2 = TestListener.FailCasesName.get(j);
 					DeviceName = testDevice[0].split("\\(")[0];
 					String txtName2 = DeviceName+"_"+CaseName2;
-					test = extent.createTest(testDevice[0]+"-"+CaseName2);
+					ExtentTest test = extent.createTest(testDevice[0]+"-"+CaseName2);
 					test.assignCategory(testDevice[0]);
+					test.getModel().setStartTime(getTime(result.getStartMillis()));
+					test.getModel().setEndTime(getTime(result.getEndMillis()));
 					try {
 						IOMananger.DealwithFailRunLog(TestListener.ProjectPath,DeviceName, CaseName2);//只处理执行失败的用例对应的设备运行日志
 						test.fail("报错截图：",MediaEntityBuilder.createScreenCaptureFromPath(TestListener.screenMessageList.get(j)).build());
@@ -131,8 +135,7 @@ public class TestReport implements IReporter {
 					j++;
 					break;
 				}
-				test.getModel().setStartTime(getTime(result.getStartMillis()));
-				test.getModel().setEndTime(getTime(result.getEndMillis()));
+				
 			}
 			
 		}

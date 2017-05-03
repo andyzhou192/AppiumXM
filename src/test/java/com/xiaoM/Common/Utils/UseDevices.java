@@ -2,6 +2,8 @@ package com.xiaoM.Common.Utils;
 
 import java.util.List;
 
+import com.xiaoM.Report.utils.TestListener;
+
 public class UseDevices {
 	static List<String> devices;
 	static String device;

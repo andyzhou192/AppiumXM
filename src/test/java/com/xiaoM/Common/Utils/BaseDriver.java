@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.xiaoM.Report.utils.TestListener;
 import com.xiaoM.appium.utils.AppiumServerUtils;
 import com.xiaoM.appium.utils.GetAppPA;
 
@@ -58,7 +59,7 @@ public class BaseDriver {
 						capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 						capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appMainPackage);
 						capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, appActivity);
-						capabilities.setCapability("udid", deviceId);
+						capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
 						capabilities.setCapability("unicodeKeyboard", "True");
 						capabilities.setCapability("resetKeyboard", "True");
 						capabilities.setCapability("noSign", "True");	
@@ -115,6 +116,7 @@ public class BaseDriver {
 					capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
 					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
 					capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sdkVersion);
+					capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
 					capabilities.setCapability("unicodeKeyboard", "True");
 					capabilities.setCapability("resetKeyboard", "True");
 					driver = new AndroidDriver<WebElement>(new URL("http://"+nodeURL+"/wd/hub"), capabilities);

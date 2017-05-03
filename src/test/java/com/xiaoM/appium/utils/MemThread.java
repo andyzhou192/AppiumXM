@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.xiaoM.Common.Utils.IOMananger;
-import com.xiaoM.Common.Utils.TestListener;
+import com.xiaoM.Report.utils.TestListener;
 
 public class MemThread extends Thread {
 	

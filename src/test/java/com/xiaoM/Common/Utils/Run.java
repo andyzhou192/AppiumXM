@@ -4,6 +4,7 @@ import java.net.URL;
 
 import org.openqa.selenium.WebElement;
 
+import com.xiaoM.Report.utils.TestListener;
 import com.xiaoM.appium.utils.AppiumElementAction;
 import com.xiaoM.appium.utils.AppiumResourceMonitoring;
 import com.xiaoM.appium.utils.AppiumScreenShot;
@@ -56,8 +57,9 @@ public class Run extends BaseDriver {
 				}
 			}
 			log.info("设备： "+driverName+" 执行用例："+CaseName+"成功");
-			TestListener.mobileSuccessMessageList.add(driverName+"(版本："+sdkVersion+")");
+			TestListener.mobileSuccessMessageList.add(driverName+"(系统版本："+sdkVersion+")-"+CaseName);
 		} catch (Exception | Error e) {
+			TestListener.FailCasesName.add(CaseName);
 			AppiumScreenShot screenShot=new AppiumScreenShot(driver);
 			screenShot.setscreenName(driverName,CaseName);
 			screenShot.takeScreenshot();

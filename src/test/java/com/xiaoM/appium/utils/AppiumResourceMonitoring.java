@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.xiaoM.Common.Utils.CommonUtils;
 import com.xiaoM.Common.Utils.IOMananger;
 import com.xiaoM.Common.Utils.Log;
-import com.xiaoM.Common.Utils.TestListener;
+import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
 

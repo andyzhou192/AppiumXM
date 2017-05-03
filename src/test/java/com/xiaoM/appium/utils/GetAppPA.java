@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.xiaoM.Common.Utils.TestListener;
+import com.xiaoM.Report.utils.TestListener;
 
 /**
  *  获取Android apk 包名和Activity

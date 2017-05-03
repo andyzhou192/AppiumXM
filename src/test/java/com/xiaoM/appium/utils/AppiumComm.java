@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.xiaoM.Common.Utils.IOMananger;
-import com.xiaoM.Common.Utils.TestListener;
+import com.xiaoM.Report.utils.TestListener;
 
 public class AppiumComm {
 	public static String adb = "adb";

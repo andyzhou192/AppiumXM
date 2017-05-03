@@ -13,8 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.xiaoM.Common.Utils.Assertion;
 import com.xiaoM.Common.Utils.Log;
-import com.xiaoM.Common.Utils.TestListener;
 import com.xiaoM.ExecuteScript.ExecuteScript;
+import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -127,7 +127,7 @@ public class AppiumElementAction{
 			return webElement;
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"【failed】  等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
 			throw e;
 		}
 	}
@@ -150,7 +150,7 @@ public class AppiumElementAction{
 //			return webElements;
 //		} catch (Exception e) {
 //			log.error("设备： "+driverName+" "+"【failed】  等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-//			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+//			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
 //			throw e;
 //		}
 //	}
@@ -164,7 +164,7 @@ public class AppiumElementAction{
 			log.info("设备： "+driverName+" "+"选择操作：Index="+i);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"复选框选择失败   方式: [ index ] 值： [ "+locator[8].toString()+" ]");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ index ] 值： [ "+locator[8].toString()+" ]");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ index ] 值： [ "+locator[8].toString()+" ]");
 			throw e;
 		}
 	}
@@ -176,7 +176,7 @@ public class AppiumElementAction{
 			log.info("设备： "+driverName+" "+"选择操作：Text="+text);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"复选框选择失败   方式: [ text ] 值： [ "+locator[8].toString()+" ]");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ text ] 值： [ "+locator[8].toString()+" ]");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ text ] 值： [ "+locator[8].toString()+" ]");
 			throw e;
 		}
 	}
@@ -188,7 +188,7 @@ public class AppiumElementAction{
 			log.info("设备： "+driverName+" "+"选择操作：Value="+value);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"复选框选择失败   方式: [ value ] 值： [ "+locator[8].toString()+" ]");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ value ] 值： [ "+locator[8].toString()+" ]");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"复选框选择失败   方式: [ value ] 值： [ "+locator[8].toString()+" ]");
 			throw e;
 		}
 	}
@@ -224,7 +224,7 @@ public class AppiumElementAction{
 			map.put(locator[2].toString(), text);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"获取数据失败！");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"获取数据失败！");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"获取数据失败！");
 			throw e;
 		}		
 	}
@@ -238,7 +238,7 @@ public class AppiumElementAction{
 			webElement.sendKeys(text);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"控件传入数据失败！");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"控件传入数据失败，传入数据为："+text);
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"控件传入数据失败，传入数据为："+text);
 			throw e;
 		}	
 	}
@@ -255,7 +255,7 @@ public class AppiumElementAction{
 				webElement.sendKeys(locator[8].toString());
 			} catch (Exception e) {
 				log.error("设备： "+driverName+" "+"控件输入失败！");
-				TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"控件输入失败，输入数据为："+locator[8].toString());
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"控件输入失败，输入数据为："+locator[8].toString());
 				throw e;
 			}
 			break;
@@ -265,7 +265,7 @@ public class AppiumElementAction{
 				webElement.click();
 			} catch (Exception e) {
 				log.error("设备： "+driverName+" "+"点击控件失败！");
-				TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"点击控件失败！");
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"点击控件失败！");
 				throw e;
 			}
 			break;
@@ -276,7 +276,7 @@ public class AppiumElementAction{
 				touchAction.longPress(waitForElement(driver,locator,driverName,sdkVersion));	
 			} catch (Exception e) {
 				log.error("设备： "+driverName+" "+"长按控件失败！");
-				TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"长按控件失败！");
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"长按控件失败！");
 				throw e;
 			}
 			break;
@@ -422,7 +422,7 @@ public class AppiumElementAction{
 			sleep(1);
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+locator[3].toString()+"失败");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+locator[3].toString()+"失败");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+locator[3].toString()+"失败");
 		}
 	}
 	
@@ -433,7 +433,7 @@ public class AppiumElementAction{
 			execute.doRun(locator[5].toString());
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"执行外部脚本："+locator[5].toString()+"失败");
-			TestListener.messageList.add(driverName+"(版本："+sdkVersion+"):::"+"执行外部脚本："+locator[5].toString()+"失败");
+			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"执行外部脚本："+locator[5].toString()+"失败");
 		}
 	}
 	

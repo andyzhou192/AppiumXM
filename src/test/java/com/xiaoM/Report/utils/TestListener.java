@@ -1,4 +1,4 @@
-package com.xiaoM.Common.Utils;
+package com.xiaoM.Report.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
+import com.xiaoM.Common.Utils.IOMananger;
+import com.xiaoM.Common.Utils.Log;
 import com.xiaoM.appium.utils.AppiumComm;
 
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -23,6 +24,8 @@ public class TestListener  extends TestListenerAdapter{
 	public static List<String> ResourceList=new ArrayList<String>();
 	public static List<String> mobileSuccessMessageList=new ArrayList<String>();
 	public static List<String> deviceLists=new ArrayList<String>();
+	public static List<Object[]> RunCases=new ArrayList<Object[]>();//执行测试case
+	public static List<String> FailCasesName=new ArrayList<String>();
 	public static  String TestCase;//测试用例
 	public static String ProjectPath;//工程路径
 	public static String CasePath;//TestCase路径
@@ -65,26 +68,11 @@ public class TestListener  extends TestListenerAdapter{
 		IOMananger.deleteFile(path);//删除日志文件
 		try {
 			RunCase = IOMananger.runTime("TestCases", CasePath);
+			for(int i=0;i<RunCase.length;i++){
+				RunCases.add(RunCase[i]);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public void onTestStart(ITestResult  tr){
-		log.info("[ Start ] 测试用例: "+tr.getParameters()[1]);
-	}
-	@Override
-	public void onTestFailure( ITestResult  tr){
-		log.error("[ Failed ] 测试用例: "+tr.getParameters()[1]);
-	}
-	@Override
-	public void onTestSkipped(ITestResult tr) {
-		log.warn("[ Skipped ] 测试用例: "+tr.getParameters()[1]);
-	}
-
-	@Override
-	public void onTestSuccess(ITestResult tr) {
-		log.info("[ Passed ]测试用例: "+tr.getParameters()[1]);
 	}
 }
