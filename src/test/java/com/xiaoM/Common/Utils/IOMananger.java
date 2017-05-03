@@ -145,7 +145,6 @@ public class IOMananger {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static List<String> checkExcelDataXlsx( String cellContent) throws IOException {
 		InputStream is = new FileInputStream(TestListener.CasePath);
 		List<String> list = new LinkedList<String>();
