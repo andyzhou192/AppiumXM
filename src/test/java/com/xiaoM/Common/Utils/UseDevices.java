@@ -8,7 +8,7 @@ public class UseDevices {
 	static List<String> devices;
 	static String device;
 	
-	public synchronized static String Device (){
+	public static synchronized String Device (){
 		devices = TestListener.deviceLists;
 		device = devices.get(0);
 		devices.remove(0);

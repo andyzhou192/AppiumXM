@@ -66,6 +66,7 @@ public class Run extends BaseDriver {
 			log.error("设备： "+driverName+" 执行用例："+CaseName+"出错，正在关闭driver，准备执行下一条用例");
 			throw e;
 		} finally {
+			TestListener.deviceLists.add(device);
 			driver.quit();
 		}
 	}

@@ -25,7 +25,7 @@ public class TestListener  extends TestListenerAdapter{
 	public static List<String> mobileSuccessMessageList=new ArrayList<String>();
 	public static List<String> deviceLists=new ArrayList<String>();
 	public static List<Object[]> RunCases=new ArrayList<Object[]>();//执行测试case
-	public static List<String> FailCasesName=new ArrayList<String>();
+	public static List<String> FailCasesName=new ArrayList<String>();//失败用例的CaseName
 	public static  String TestCase;//测试用例
 	public static String ProjectPath;//工程路径
 	public static String CasePath;//TestCase路径
