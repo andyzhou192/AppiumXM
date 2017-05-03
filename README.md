@@ -9,7 +9,7 @@ Jenkins 2.32.3<p>
 window 10
 # 存在问题
 1、测试报告展示测试结束时间有误<p>
-2、testNG框架限制多线程数<p>
+~~2、testNG框架限制多线程数~~<p>
 3、其他未知问题
 # 后期优化
 ~~1、整合sikuil，实现图片识别操作~~
@@ -19,6 +19,6 @@ window 10
 3、支持操作：看源码。。。<p>
 ~~4、运行StartTest.xml或编写ant编译配置文件运行<p>~~
 4、安装testng插件运行StartTest.xml或定位到工程目录下运行mvn test，ant编译中文会乱码不建议<p>
-5、多设备参照testNG多线程<p>
+5、多设备参照StartTest.xml注释<p>
 6、持续集成，Jenkins + mvn 亲测运行完美<p>
 
