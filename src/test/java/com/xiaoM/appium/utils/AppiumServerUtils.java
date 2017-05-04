@@ -1,10 +1,6 @@
 package com.xiaoM.appium.utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
-
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.AndroidServerFlag;
@@ -19,14 +15,6 @@ public class AppiumServerUtils {
 	String bp;
 	AppiumDriverLocalService service;
 	
-	static{
-		try {
-			setAppiumPath();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public AppiumServerUtils(){
 	}
 	public AppiumServerUtils(String ipAddress, int port,String bp){
@@ -35,6 +23,10 @@ public class AppiumServerUtils {
 		this.bp = bp;
 	}
 	
+	/**
+	 * 使用默认（即127.0.0.1:4723）
+	 * @return
+	 */
 	public URL startAppiumServerByDefault() {
 		AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
 		service.start();
@@ -66,26 +58,22 @@ public class AppiumServerUtils {
 		}
 		return service.getUrl();
 	}
-	public AppiumDriverLocalService stopServer(){
-		if(service!=null){
-			return service;
+	
+	public URL startServer(String ipAddress,int port) {
+		AppiumServiceBuilder builder = new AppiumServiceBuilder();
+		builder.withIPAddress(ipAddress);
+		builder.usingPort(port);
+		service = AppiumDriverLocalService.buildService(builder);
+		service.start();
+		if (service == null || !service.isRunning()) {
+			throw new RuntimeException("An appium server node is not started!");
 		}
-		return null;
+		return service.getUrl();
 	}
 	
-	public static void  setAppiumPath() throws IOException{
-		String os = System.getProperty("os.name");
-		if(os.contains("Mac")){// 从配置文件dbinfo.properties中读取配置信息
-			Properties pp = new Properties();
-			FileInputStream fis = new FileInputStream("config.properties");
-            pp.load(fis);
-            String appiumPath = pp.getProperty("APPIUM_JS_PATH");
-            String adbPath = pp.getProperty("ADB_PATH");
-            System.setProperty(AppiumServiceBuilder.APPIUM_PATH , appiumPath);
-            AppiumComm.adb = adbPath;
+	public void stopServer(){
+		if(service!=null){
+			 service.stop();
 		}
-	}
-	public static void main(String[] args) throws IOException {
-		setAppiumPath();
 	}
 }
