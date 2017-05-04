@@ -2,17 +2,16 @@ package com.xiaoM.ExecuteScript;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.openqa.selenium.WebElement;
-
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class ExecuteScript {
-	public AppiumDriver<WebElement> driver;
+	public AppiumDriver <MobileElement> driver;
 	
 	public  ExecuteScript(){
 	}
 	
-	public  ExecuteScript(AppiumDriver<WebElement> driver) {
+	public  ExecuteScript(AppiumDriver <MobileElement> driver) {
 		this.driver = driver;
 	}
 	/**

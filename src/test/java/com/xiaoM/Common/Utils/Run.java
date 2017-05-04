@@ -2,18 +2,17 @@ package com.xiaoM.Common.Utils;
 
 import java.net.URL;
 
-import org.openqa.selenium.WebElement;
-
 import com.xiaoM.Report.utils.TestListener;
 import com.xiaoM.appium.utils.AppiumElementAction;
 import com.xiaoM.appium.utils.AppiumResourceMonitoring;
 import com.xiaoM.appium.utils.AppiumScreenShot;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class Run extends BaseDriver {
 	public Log log=new Log(this.getClass());
-	AppiumDriver <WebElement> driver ;
+	AppiumDriver <MobileElement> driver ;
 	String driverName = null;
 	public URL url;
 	public  void testCase(String CaseType,String CaseName,String device) throws Exception {

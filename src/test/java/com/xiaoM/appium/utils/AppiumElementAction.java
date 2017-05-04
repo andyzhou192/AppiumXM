@@ -17,6 +17,7 @@ import com.xiaoM.ExecuteScript.ExecuteScript;
 import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
 /**
@@ -28,7 +29,7 @@ public class AppiumElementAction{
 
 	public Log log=new Log(this.getClass());
 	private static Map<String, String> map = new HashMap<String, String>();
-	public WebElement getElement(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public WebElement getElement(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] control = locator[5].toString().split("::");
 		log.info("设备： "+driverName+" "+"查找元素："+locator[3].toString()+" 方式 :  "+control[0]+" [ "+control[1]+" ]");
 		WebElement webElement;
@@ -71,7 +72,7 @@ public class AppiumElementAction{
 //	 * @return 返回 WebElement
 //	 * @throws NoSuchElementException 找不到元素异常
 //	 */
-//	public List<WebElement> getElements(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+//	public List<WebElement> getElements(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 //		String[] control = locator[5].toString().split("::");
 //		log.info("设备： "+driverName+" "+"查找元素："+locator[3].toString()+" 方式 :  "+control[0]+" [ "+control[1]+" ]");
 //		List<WebElement> webElements;
@@ -113,7 +114,7 @@ public class AppiumElementAction{
 	 * @param timeout
 	 * @return
 	 */
-	public WebElement waitForElement(final AppiumDriver<WebElement> driver,final Object[] locator,final String driverName,String sdkVersion){
+	public WebElement waitForElement(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
 		WebElement webElement=null;
 		int i = Integer.valueOf(locator[6].toString());
 		try {
@@ -136,7 +137,7 @@ public class AppiumElementAction{
 //	 * @param locator 元素定位信息
 //	 * @return
 //	 */
-//	public List<WebElement>  waitForElements(final AppiumDriver<WebElement> driver,final Object[] locator,final String driverName,String sdkVersion){
+//	public List<WebElement>  waitForElements(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
 //		List<WebElement>  webElements=null;
 //		try {
 //			webElements=(new WebDriverWait(driver, 20)).until(
@@ -155,7 +156,7 @@ public class AppiumElementAction{
 //		}
 //	}
 
-	public void elementSelectForIndex(AppiumDriver<WebElement> driver,Object[] locator,String i,String driverName,String sdkVersion){
+	public void elementSelectForIndex(AppiumDriver <MobileElement> driver,Object[] locator,String i,String driverName,String sdkVersion){
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		int index = Integer.valueOf(i);
 		Select select = new Select(webElement);
@@ -168,7 +169,7 @@ public class AppiumElementAction{
 			throw e;
 		}
 	}
-	public void elementSelectForText(AppiumDriver<WebElement> driver,Object[] locator,String text,String driverName,String sdkVersion){
+	public void elementSelectForText(AppiumDriver <MobileElement> driver,Object[] locator,String text,String driverName,String sdkVersion){
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		Select select = new Select(webElement);
 		try {
@@ -180,7 +181,7 @@ public class AppiumElementAction{
 			throw e;
 		}
 	}
-	public void elementSelectForValue(AppiumDriver<WebElement> driver,Object[] locator,String value,String driverName,String sdkVersion){
+	public void elementSelectForValue(AppiumDriver <MobileElement> driver,Object[] locator,String value,String driverName,String sdkVersion){
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		Select select = new Select(webElement);
 		try {
@@ -196,7 +197,7 @@ public class AppiumElementAction{
 	 *  下拉选择操作
 	 * @param locator
 	 */
-	public void elementSelect(AppiumDriver<WebElement> driver,Object[] locator,String driverName,String sdkVersion){
+	public void elementSelect(AppiumDriver <MobileElement> driver,Object[] locator,String driverName,String sdkVersion){
 		String[] Selects = locator[8].toString().split("=");
 		switch (Selects[0].toString()){
 		case "Index":
@@ -215,7 +216,7 @@ public class AppiumElementAction{
 	 * @param driver
 	 * @param locator
 	 */
-	private void elementExport(AppiumDriver<WebElement> driver, Object[] locator,String driverName,String sdkVersion) {
+	private void elementExport(AppiumDriver <MobileElement> driver, Object[] locator,String driverName,String sdkVersion) {
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		String text = null;
 		try {
@@ -229,7 +230,7 @@ public class AppiumElementAction{
 		}		
 	}
 
-	private void elementIncoming(AppiumDriver<WebElement> driver, Object[] locator,String driverName,String sdkVersion) {
+	private void elementIncoming(AppiumDriver <MobileElement> driver, Object[] locator,String driverName,String sdkVersion) {
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		String text =null;
 		try {
@@ -246,7 +247,7 @@ public class AppiumElementAction{
 	 * 元素操作
 	 * @param locator
 	 */
-	public void elementOperation(AppiumDriver<WebElement> driver,Object[] locator,String driverName,String sdkVersion){
+	public void elementOperation(AppiumDriver <MobileElement> driver,Object[] locator,String driverName,String sdkVersion){
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		switch (locator[7].toString()){
 		case "sendKeys" :
@@ -302,7 +303,7 @@ public class AppiumElementAction{
 	 * 坐标点击
 	 * @param locator
 	 */
-	public void driverClick(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public void driverClick(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] coordinate = locator[5].toString().split(",");
 		log.info("设备： "+driverName+" "+"坐标点击："+coordinate[0]+","+ coordinate[1]);
 		int x = Integer.valueOf(coordinate[0]);
@@ -323,7 +324,7 @@ public class AppiumElementAction{
 	 * @param endy
 	 */
 	@SuppressWarnings("deprecation")
-	public void driverSwipe(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public void driverSwipe(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] coordinates = locator[5].toString().split(":");
 		String[] A = coordinates[0].split(",");
 		String[] B = coordinates[1].split(",");
@@ -345,7 +346,7 @@ public class AppiumElementAction{
 	 * @param endx
 	 * @param endy
 	 */
-	public void driverDragAndDrop(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public void driverDragAndDrop(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] coordinates = locator[5].toString().split(":");
 		String[] A = coordinates[0].split(",");
 		String[] B = coordinates[1].split(",");
@@ -367,7 +368,7 @@ public class AppiumElementAction{
 	 * 坐标长按
 	 * @param locator
 	 */
-	public void driverLongPress(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public void driverLongPress(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] coordinates = locator[5].toString().split(":");
 		int x = Integer.valueOf(coordinates[0]);
 		int y =Integer.valueOf(coordinates[1]);
@@ -386,7 +387,7 @@ public class AppiumElementAction{
 	 *  坐标选择操作
 	 * @param locator
 	 */
-	public void coordinatesOperation(AppiumDriver<WebElement> driver,Object[] locator,String driverName){
+	public void coordinatesOperation(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		switch (locator[7].toString()){
 		case "click":
 			driverClick(driver,locator,driverName);
@@ -426,7 +427,7 @@ public class AppiumElementAction{
 		}
 	}
 	
-	private void ExecuteScript(AppiumDriver<WebElement> driver,Object[] locator,String driverName,String sdkVersion){
+	private void ExecuteScript(AppiumDriver <MobileElement> driver,Object[] locator,String driverName,String sdkVersion){
 		log.info("设备： "+driverName+" "+"执行外部脚本："+locator[5].toString());
 		try {
 			ExecuteScript execute = new ExecuteScript(driver);
@@ -437,7 +438,7 @@ public class AppiumElementAction{
 		}
 	}
 	
-	private void HybrisAPP(AppiumDriver<WebElement> driver,Object[] locator) {
+	private void HybrisAPP(AppiumDriver <MobileElement> driver,Object[] locator) {
 		if(locator[1].toString().contains("WEBVIEW")||locator[1].toString().contains("NATIVE_APP")){
 			Set<String> contextNames = driver.getContextHandles();
 			for (String contextName : contextNames) {
@@ -449,7 +450,7 @@ public class AppiumElementAction{
 		}	
 	}
 
-	public void executeAppiumAction(AppiumDriver<WebElement> driver,Object[] locator,String deviceId,String driverName,String sdkVersion) throws Exception{
+	public void executeAppiumAction(AppiumDriver <MobileElement> driver,Object[] locator,String deviceId,String driverName,String sdkVersion) throws Exception{
 		HybrisAPP(driver,locator);
 		switch (locator[4].toString()){
 		case "Sleep":

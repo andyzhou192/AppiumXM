@@ -4,20 +4,19 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.WebElement;
-
 import com.xiaoM.Common.Utils.CommonUtils;
 import com.xiaoM.Common.Utils.IOMananger;
 import com.xiaoM.Common.Utils.Log;
 import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class AppiumResourceMonitoring {
 	public Log log=new Log(this.getClass());
 	static String[] luanch = null;//存放测试应用包名和Activity
 	DecimalFormat df =new DecimalFormat("0.00");//格式化数值，保留两位小数
-	public void driverStartApp(AppiumDriver<WebElement> driver,String deviceId,String driverName) throws Exception {
+	public void driverStartApp(AppiumDriver <MobileElement> driver,String deviceId,String driverName) throws Exception {
 		try {
 			log.info("设备： "+driverName+" "+"启动资源监控器");
 			String CpuPath = TestListener.ProjectPath+"/test-output/MonitorResoure/Cpu/"+driverName+".txt";

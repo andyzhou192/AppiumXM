@@ -5,13 +5,12 @@ import java.io.IOException;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
-
 import com.google.common.io.Files;
 import com.xiaoM.Common.Utils.Log;
 import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 /**
  * 截图工具类
@@ -19,7 +18,7 @@ import io.appium.java_client.AppiumDriver;
  *
  */
 public class AppiumScreenShot{
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver <MobileElement> driver;
 	private String CaseName;
 	private String driverName;
 	Log log =new Log(this.getClass());
@@ -29,12 +28,12 @@ public class AppiumScreenShot{
 		this.CaseName=CaseName;
 		this.driverName = driverName;
 	}
-	public AppiumScreenShot(AppiumDriver<WebElement> driver){
+	public AppiumScreenShot(AppiumDriver <MobileElement> driver){
 		this.driver = driver;
 	}
 	private void takeScreenshot(String screenPath) {
             //appium在Chrome没法截图，需用原生app下进行截图(这里纯属为了WAP端可以进行截图)
-            AppiumDriver<WebElement> driver2=((AppiumDriver<WebElement>) driver);
+            AppiumDriver <MobileElement> driver2=((AppiumDriver <MobileElement>) driver);
             driver2.context("NATIVE_APP");//切换到NATIVE_APP进行app截图
 		try {
 			File scrFile = ((TakesScreenshot) driver2).getScreenshotAs(OutputType.FILE);
