@@ -62,7 +62,7 @@ public class BaseDriver {
 					capabilities.setCapability("unicodeKeyboard", "True");
 					capabilities.setCapability("resetKeyboard", "True");
 					capabilities.setCapability("noSign", "True");	
-//						driver = new AppiumDriver<MobileElement>(url, capabilities);
+//					driver = new AppiumDriver<MobileElement>(url, capabilities);
 				}else{
 					AppiumServer = new AppiumServerUtils();
 					url = AppiumServer.startServer(ipAddress,Port);
@@ -74,7 +74,7 @@ public class BaseDriver {
 					capabilities.setCapability(IOSMobileCapabilityType.LAUNCH_TIMEOUT, 500000);
 					capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
 					capabilities.setCapability("bundleId",bundleId);
-//						driver = new AppiumDriver <MobileElement>(new URL("http://"+nodeURL+"/wd/hub"), capabilities);
+//					driver = new AppiumDriver <MobileElement>(new URL("http://"+nodeURL+"/wd/hub"), capabilities);
 				}	
 				driver = new AppiumDriver<MobileElement>(url, capabilities);
 			} catch (Exception e) {
