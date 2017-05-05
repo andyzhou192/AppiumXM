@@ -1,6 +1,9 @@
 package com.xiaoM.ExecuteScript;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import org.openqa.selenium.JavascriptExecutor;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -40,4 +43,17 @@ public class ExecuteScript {
 		System.out.println("*      test        *");
 		System.out.println("********************");
 	}
+	
+	public void iosDemo(){
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		HashMap<String, String> scrollObject = new HashMap<String, String>();
+		scrollObject.put("direction", "UP");
+		js.executeScript("mobile: scroll", scrollObject);
+		
+	}
+	@SuppressWarnings("deprecation")
+	public void  iosDemo2(){
+		driver.tap(1, 8, 349, 1000);
+	}
+	
 }
