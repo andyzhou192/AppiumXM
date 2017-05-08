@@ -16,6 +16,7 @@ public class Run extends BaseDriver {
 	String driverName = null;
 	public URL url;
 	public  void testCase(String CaseType,String CaseName,String device) throws Exception {
+		System.out.println("===============================>到这里了1+++++++++++++++++++++++++++");
 		String devicesPath =null;
 		if(TestListener.DeviceType.equals("Android")){
 			devicesPath = TestListener.ProjectPath+"/devices/AndroidDevices.xlsx";//选择设备
@@ -37,6 +38,7 @@ public class Run extends BaseDriver {
 			String sdkVersion = testBase[6][2].toString();
 			log.info("设备： "+driverName+" 执行用例："+CaseName);
 			Object[][] testStart = IOMananger.readExcelData(CaseName,TestListener.CasePath);
+			System.out.println("===============================>到这里了+++++++++++++++++++++++++++");
 			if(CaseType.equals("RM")){
 				AppiumResourceMonitoring RM = new AppiumResourceMonitoring();
 				RM.driverStartApp(driver, deviceId, driverName);
@@ -50,6 +52,7 @@ public class Run extends BaseDriver {
 			}else{
 				for(int a=1;a<testStart.length;a++){
 					if(testStart[a][0].equals("YES")){
+						log.info("===============================>"+testStart[a][4].toString());
 						AppiumElementAction action = new AppiumElementAction();
 						action.executeAppiumAction(driver,testStart[a],deviceId,driverName, sdkVersion);
 					}	
