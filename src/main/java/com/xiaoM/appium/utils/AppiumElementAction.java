@@ -452,10 +452,10 @@ public class AppiumElementAction{
 	}
 
 	private void runPageObject(AppiumDriver <MobileElement> driver,Object[] locator, String deviceId, String driverName, String sdkVersion) throws Exception {
-		String[] Paths = locator[5].toString().split(".");
-		String PageObjectPath = TestListener.ProjectPath+"/TestCase/"+ Paths[1]+".xlsx";
-		log.info("执行 PageObject:"+locator[5].toString());
-		Object[][] testStart = IOMananger.readExcelData(Paths[2],PageObjectPath); 
+		String[] Paths = locator[5].toString().split("::");
+		String PageObjectPath = TestListener.ProjectPath+"/testcase/"+Paths[0]+".xlsx";
+		log.info("设备： "+driverName+" "+"执行 PageObject "+locator[5].toString());
+		Object[][] testStart = IOMananger.readExcelData(Paths[1],PageObjectPath); 
 		for(int a=1;a<testStart.length;a++){
 			if(testStart[a][0].equals("YES")){
 				executeAppiumAction(driver,testStart[a], deviceId,driverName,sdkVersion);
@@ -465,7 +465,6 @@ public class AppiumElementAction{
 
 	public void executeAppiumAction(AppiumDriver <MobileElement> driver,Object[] locator,String deviceId,String driverName,String sdkVersion) throws Exception{
 		HybrisAPP(driver,locator);
-		log.info("===============================>"+locator[4].toString());
 		switch (locator[4].toString()){
 		case "Sleep":
 			int time = Integer.valueOf(locator[5].toString());
@@ -489,7 +488,6 @@ public class AppiumElementAction{
 			SimulateAction(locator,deviceId,driverName,sdkVersion);
 			break;
 		case "PageObject":
-			log.info("================================================>");
 			runPageObject(driver,locator,deviceId,driverName,sdkVersion);
 			break;
 		}
