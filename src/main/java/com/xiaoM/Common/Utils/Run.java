@@ -67,7 +67,7 @@ public class Run extends BaseDriver {
 		} finally {
 			TestListener.deviceLists.add(device);
 			driver.quit();
-//			AppiumServer.stopServer();
+			AppiumServer.stopServer();
 		}
 	}
 }

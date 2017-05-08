@@ -47,13 +47,13 @@ public class ExecuteScript {
 	public void iosDemo(){
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		HashMap<String, String> scrollObject = new HashMap<String, String>();
-		scrollObject.put("direction", "UP");
+		scrollObject.put("direction", "down");
 		js.executeScript("mobile: scroll", scrollObject);
 		
 	}
 	@SuppressWarnings("deprecation")
 	public void  iosDemo2(){
-		driver.tap(1, 8, 349, 1000);
+		driver.tap(1, 8, 349, 1000);//坐标点击
 	}
 	
 }
