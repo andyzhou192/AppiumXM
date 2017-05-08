@@ -21,4 +21,4 @@ window 10
 4、安装testng插件运行StartTest.xml或定位到工程目录下运行mvn test，ant编译中文会乱码不建议<p>
 5、多设备参照StartTest.xml注释<p>
 6、持续集成，Jenkins + mvn 亲测运行完美<p>
-
+7、iOS真机需自行前往 /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent 对 WebDriverAgent.xcodeproj 进行重签名（个人证书即可）
