@@ -1,5 +1,5 @@
 # AppiumXM
-基于 Appium + testNG + java + maven 适用于Android、iOS自动化测试框架，Excel关键字驱动无需编写代码，支持jenkins持续集成，Android真机或模拟器多设备并发执行以及性能监控，iOS暂时只支持基本操作
+AppiumXM自动化测试框架基于 Appium + testNG + maven 二次封装，采用java语言进行开发，适用于Android、iOS自动化测试，采用Excel关键字驱动实现无需编写代码即可进行自动化测试，支持jenkins持续集成，支持Android/iOS在真机或模拟器进行自动化测试，支持H5、Hybrid 、Native测试
 # 开发配置
 Appium  1.6.3<p>
 maven   3.3.9<p>
