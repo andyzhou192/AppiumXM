@@ -9,7 +9,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.xiaoM.Report.utils.TestListener;
 import com.xiaoM.appium.utils.AppiumServerUtils;
-import com.xiaoM.appium.utils.GetAppPA;
 import com.xiaoM.appium.utils.PortProber;
 
 import io.appium.java_client.AppiumDriver;
@@ -48,9 +47,8 @@ public class BaseDriver {
 					url = AppiumServer.startServer();
 					File appDir=new File(TestListener.ProjectPath,"apps");
 					File app =new File(appDir,TestListener.appName);
-					String[] PA = GetAppPA.getPacknameAndActivity(TestListener.ProjectPath,TestListener.appName);
-					String appMainPackage =PA[0];
-					String appActivity =PA[1];
+					String appMainPackage =TestListener.PackageName;
+					String appActivity =TestListener.Activity;
 					capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.APPIUM);
 					capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
 					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
@@ -65,14 +63,14 @@ public class BaseDriver {
 				}else{
 					AppiumServer = new AppiumServerUtils();
 					url = AppiumServer.startServer(ipAddress,Port);
-					String bundleId = testBase[8][2].toString();
+					String bundleId = TestListener.bundleId;
 					capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 					capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
 					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
 					capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sdkVersion);
 					capabilities.setCapability(IOSMobileCapabilityType.LAUNCH_TIMEOUT, 500000);
 					capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
-					capabilities.setCapability("bundleId",bundleId);
+					capabilities.setCapability(IOSMobileCapabilityType.BUNDLE_ID,bundleId);
 				}	
 				driver = new AppiumDriver<MobileElement>(url, capabilities);
 			} catch (Exception e) {

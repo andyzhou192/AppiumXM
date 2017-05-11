@@ -14,7 +14,7 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumResourceMonitoring {
 	public Log log=new Log(this.getClass());
-	static String[] luanch = null;//存放测试应用包名和Activity
+//	static String[] luanch = null;//存放测试应用包名和Activity
 	DecimalFormat df =new DecimalFormat("0.00");//格式化数值，保留两位小数
 	public void driverStartApp(AppiumDriver <MobileElement> driver,String deviceId,String driverName) throws Exception {
 		try {
@@ -24,10 +24,9 @@ public class AppiumResourceMonitoring {
 			String NetPath = TestListener.ProjectPath+"/test-output/MonitorResoure/Net/"+driverName+".txt";
 			String[] Paths = {CpuPath,MenPath,NetPath};
 			IOMananger.deleteFile(Paths);//删除监控日志文件
-			luanch = GetAppPA.getPacknameAndActivity();
-			AppiumComm.getMobileAppNet(luanch[0], deviceId,driverName);
-			CpuThread cpuThread = new CpuThread(luanch[0], deviceId,driverName); // CPU监控线程1
-			MemThread memThread = new MemThread(luanch[0], deviceId,driverName);//内存监控线程2
+			AppiumComm.getMobileAppNet(TestListener.PackageName, deviceId,driverName);
+			CpuThread cpuThread = new CpuThread(TestListener.PackageName, deviceId,driverName); // CPU监控线程1
+			MemThread memThread = new MemThread(TestListener.PackageName, deviceId,driverName);//内存监控线程2
 			cpuThread.start();// CPU监控线程启动
 			memThread.start();// 内存监控线程启动
 		} catch (Exception e) {
@@ -37,7 +36,7 @@ public class AppiumResourceMonitoring {
 	}
 
 	public void driverStop(String deviceId,String driverName,String sdkVersion) throws Exception {
-		AppiumComm.getMobileAppNet(luanch[0],deviceId,driverName);
+		AppiumComm.getMobileAppNet(TestListener.PackageName,deviceId,driverName);
 		CommonUtils.sleep(10);//线程等待
 		String CpuPath = TestListener.ProjectPath+"/test-output/MonitorResoure/Cpu/"+driverName+".txt";
 		String MenPath = TestListener.ProjectPath+"/test-output/MonitorResoure/Mem/"+driverName+".txt";
@@ -47,10 +46,10 @@ public class AppiumResourceMonitoring {
 		List<Integer> NetList = new ArrayList<Integer>();
 		String[] Men = null;
 		String[] Cpu = null;
-		AppiumComm.adbClearCache(luanch[0], deviceId);
-		AppiumComm.forceStop(luanch[0], deviceId);
+		AppiumComm.adbClearCache(TestListener.PackageName, deviceId);
+		AppiumComm.forceStop(TestListener.PackageName, deviceId);
 		CommonUtils.sleep(2);
-		String appPackageActivity = luanch[0]+"/"+luanch[1];
+		String appPackageActivity = TestListener.PackageName+"/"+TestListener.Activity;
 		String luanchTime = AppiumComm.appLuanchTime(appPackageActivity, deviceId);
 		try {
 			int cpuMax  = 0;

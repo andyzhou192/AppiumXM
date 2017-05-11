@@ -24,12 +24,14 @@ public class TestListener  extends TestListenerAdapter{
 	public static List<String> ResourceList=new ArrayList<String>();
 	public static List<String> mobileSuccessMessageList=new ArrayList<String>();
 	public static List<String> deviceLists=new ArrayList<String>();
-	public static List<Object[]> RunCases=new ArrayList<Object[]>();//执行测试case
 	public static List<String> FailCasesName=new ArrayList<String>();//失败用例的CaseName
 	public static  String TestCase;//测试用例
 	public static String ProjectPath;//工程路径
 	public static String CasePath;//TestCase路径
 	public static String appName;//测试应用
+	public static String PackageName;
+	public static String Activity;
+	public static String bundleId;
 	public static String ReportTile;//测试报告主题
 	public static String Devices;//测试设备
 	public static String TestType;//测试类型
@@ -59,18 +61,21 @@ public class TestListener  extends TestListenerAdapter{
 		ProjectPath = pp.getProperty("WORKSPAC_PATH");
 		TestCase = pp.getProperty("TESTCASE");
 		CasePath = ProjectPath +"/testcase/"+ TestCase;
-		appName = pp.getProperty("APP_NAME");
 		ReportTile = pp.getProperty("REPORT_TITLE");
 		DeviceType = pp.getProperty("DEVICE_TYPE");
+		if(DeviceType.equals("Android")){
+			appName = pp.getProperty("APP_NAME");
+			PackageName = pp.getProperty("PACKAGE_NAME");
+			Activity = pp.getProperty("ACTIVITY");
+		}else{
+			bundleId = pp.getProperty("BUNDIEID");
+		}
 		TestType = pp.getProperty("TEST_TYPE");
 		String logPath = ProjectPath+"/test-output/log/";
 		File path = new File(logPath);
 		IOMananger.deleteFile(path);//删除日志文件
 		try {
 			RunCase = IOMananger.runTime("TestCases", CasePath);
-			for(int i=0;i<RunCase.length;i++){
-				RunCases.add(RunCase[i]);
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
