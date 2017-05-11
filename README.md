@@ -1,12 +1,19 @@
 # AppiumXM
 AppiumXM自动化测试框架基于 Appium + testNG + maven 二次封装，采用java语言进行开发，适用于Android、iOS自动化测试，采用Excel关键字驱动实现无需编写代码即可进行自动化测试，支持jenkins持续集成，支持Android/iOS在真机或模拟器进行自动化测试，支持H5、Hybrid 、Native测试
-# 开发配置
-Appium  1.6.3<p>
-maven   3.3.9<p>
-OSX  10.11.6<p>
-Xcode  8.2.1<p>
-Jenkins 2.32.3<p>
-window 10
+# 环境要求
+Appium  >=1.6.3<p>
+maven   >=3.3.9<p>
+OSX  >=10.11.6<p>
+Xcode  >=8.2.1<p>
+# demo
+**测试用例**<p>
+![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/%E7%94%A8%E4%BE%8B.png)<p>
+**测试步骤描述**<p>
+![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E6%AD%A5%E9%AA%A4.png)<p>
+**测试报告（普通）**<p>
+![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/report1.png)<p>
+**测试报告（性能监控）**<p>
+![image](https://github.com/xiaoMGitHub/AppiumXM/blob/master/report2.png)<p>
 # 存在问题
 1、测试报告展示测试结束时间有误<p>
 2、其他未知问题
