@@ -175,7 +175,28 @@ public class AppiumComm {
 		menAvg = menSum/menList.size();		
 		return menAvg;
 	}
-	public static void main(String[] args) {
-		System.out.println(appLuanchTime("com.netease.mail/com.netease.mobimail.activity.LaunchActivity","192.168.1.103:5555"));
+	public static String getAppiumVersion() throws IOException{
+		Process process = null;
+		if(System.getProperty("os.name").contains("Mac")){
+			ProcessBuilder pb1 = new ProcessBuilder("appium","-v");
+			process = pb1.start();
+		}else{
+			Runtime runtime=Runtime.getRuntime();
+			process = runtime.exec("cmd /c appium -v");
+		}
+		Scanner scanner = new Scanner(process.getInputStream());
+		String result = null;
+		while (scanner.hasNextLine()) {
+			result = scanner.nextLine().toString();
+		}
+		scanner.close();
+		return result;
 	}
+	
+	public static void main(String[] args) throws IOException {
+		System.out.println(getAppiumVersion());
+	}
+//	public static void main(String[] args) {
+//		System.out.println(appLuanchTime("com.netease.mail/com.netease.mobimail.activity.LaunchActivity","192.168.1.103:5555"));
+//	}
 }

@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.xiaoM.Common.Utils.IOMananger;
+import com.xiaoM.appium.utils.AppiumComm;
 
 public class TestReport implements IReporter {
 
@@ -68,7 +69,13 @@ public class TestReport implements IReporter {
 		extent.setSystemInfo("OS", System.getProperty("os.name"));
 		extent.setSystemInfo("User Name",System.getProperty("user.name"));
 		extent.setSystemInfo("Java Version", System.getProperty("java.version"));
-		extent.setSystemInfo("Appium Version", "1.6.3");
+		String AppiumVersion = null;
+		try {
+			AppiumVersion = AppiumComm.getAppiumVersion();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		extent.setSystemInfo("Appium Version", AppiumVersion);
 		extent.setReportUsesManualConfiguration(true);
 	}  
 	private void buildTestNodes(IResultMap tests, Status status) {
