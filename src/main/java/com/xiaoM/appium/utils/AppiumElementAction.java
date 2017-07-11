@@ -1,8 +1,13 @@
 package com.xiaoM.appium.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -455,7 +460,27 @@ public class AppiumElementAction{
 		String[] Paths = locator[5].toString().split("::");
 		String PageObjectPath = TestListener.ProjectPath+"/testcase/"+Paths[0]+".xlsx";
 		log.info("设备： "+driverName+" "+"执行 PageObject "+locator[5].toString());
-		Object[][] testStart = IOMananger.readExcelData(Paths[1],PageObjectPath); 
+		Object[][] testStart =null;
+		if(Paths[1].contains("(")){
+			Pattern p=Pattern.compile("\"(.*?)\""); 
+			Matcher m=p.matcher(locator[5].toString()); 
+			String data = null;
+			List<String> datalist =new ArrayList<String>();
+			while(m.find()) { 
+				data = m.group().replace("\"", "");
+				datalist.add(data);
+			}
+			testStart = IOMananger.readExcelData(Paths[1].split("\\(")[0],PageObjectPath); 
+			for(Object[] testStart1:testStart){
+				if(Arrays.asList(testStart1).contains("***")){ //传值替换
+					Arrays.fill(testStart1, 8, 9,datalist.get(0));
+					datalist.remove(0);
+				}
+			}
+		}else{
+			testStart = IOMananger.readExcelData(Paths[1],PageObjectPath);
+		}
+		
 		for(int a=1;a<testStart.length;a++){
 			if(testStart[a][0].equals("YES")){
 				executeAppiumAction(driver,testStart[a], deviceId,driverName,sdkVersion);

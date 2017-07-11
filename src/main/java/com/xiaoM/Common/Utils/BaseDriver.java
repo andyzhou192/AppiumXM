@@ -56,6 +56,7 @@ public class BaseDriver {
 					capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 					capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appMainPackage);
 					capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, appActivity);
+					capabilities.setCapability(MobileCapabilityType.NO_RESET, TestListener.ResetApp);
 					capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
 					capabilities.setCapability("unicodeKeyboard", "True");
 					capabilities.setCapability("resetKeyboard", "True");

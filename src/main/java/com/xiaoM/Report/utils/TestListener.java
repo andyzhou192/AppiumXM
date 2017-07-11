@@ -36,7 +36,8 @@ public class TestListener  extends TestListenerAdapter{
 	public static String Devices;//测试设备
 	public static String TestType;//测试类型
 	public static Object[][] RunCase;//执行测试case
-	public static String DeviceType;
+	public static String DeviceType;//设备类型
+	public static String ResetApp;//是否重置应用
 	//配置初始化
 	static{
 		Properties pp = new Properties();
@@ -63,6 +64,7 @@ public class TestListener  extends TestListenerAdapter{
 		CasePath = ProjectPath +"/testcase/"+ TestCase;
 		ReportTile = pp.getProperty("REPORT_TITLE");
 		DeviceType = pp.getProperty("DEVICE_TYPE");
+		ResetApp = pp.getProperty("NORESET_APP");
 		if(DeviceType.equals("Android")){
 			appName = pp.getProperty("APP_NAME");
 			PackageName = pp.getProperty("PACKAGE_NAME");
