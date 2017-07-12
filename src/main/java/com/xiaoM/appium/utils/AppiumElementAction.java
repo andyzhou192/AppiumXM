@@ -72,47 +72,47 @@ public class AppiumElementAction{
 		return webElement;
 	}
 
-	//	/**
-	//	 * 通过定位信息获取一组元素
-	//	 * @param locator  元素locator
-	//	 * @return 返回 WebElement
-	//	 * @throws NoSuchElementException 找不到元素异常
-	//	 */
-	//	public List<WebElement> getElements(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
-	//		String[] control = locator[5].toString().split("::");
-	//		log.info("设备： "+driverName+" "+"查找元素："+locator[3].toString()+" 方式 :  "+control[0]+" [ "+control[1]+" ]");
-	//		List<WebElement> webElements;
-	//		switch (control[0]){
-	//		case "ByXpath" :
-	//			webElements=driver.findElements(By.xpath(control[1]));
-	//			break;
-	//		case "ById":
-	//			webElements=driver.findElements(By.id(control[1]));
-	//			break;
-	//		case "ByCssSelector":
-	//			webElements=driver.findElements(By.cssSelector(control[1]));
-	//			break;
-	//		case "ByName":
-	//			webElements=driver.findElements(By.name(control[1]));
-	//			break;
-	//		case "ByClassName":
-	//			webElements=driver.findElements(By.className(control[1]));
-	//			break;
-	//		case "ByLinkText":
-	//			webElements=driver.findElements(By.linkText(control[1]));
-	//			break;
-	//		case "ByPartialLinkText":
-	//			webElements=driver.findElements(By.partialLinkText(control[1]));
-	//			break;
-	//		case "ByTagName":
-	//			webElements=driver.findElements(By.tagName(control[1]));
-	//			break;
-	//		default :
-	//			webElements=driver.findElements(By.xpath(control[1]));
-	//			break;
-	//		}
-	//		return webElements;
-	//	}
+	/*	*//**
+		 * 通过定位信息获取一组元素
+		 * @param locator  元素locator
+		 * @return 返回 WebElement
+		 * @throws NoSuchElementException 找不到元素异常
+		 *//*
+		public List<WebElement> getElements(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
+			String[] control = locator[5].toString().split("::");
+			log.info("设备： "+driverName+" "+"查找元素："+locator[3].toString()+" 方式 :  "+control[0]+" [ "+control[1]+" ]");
+			List<WebElement> webElements;
+			switch (control[0]){
+			case "ByXpath" :
+				webElements=driver.findElements(By.xpath(control[1]));
+				break;
+			case "ById":
+				webElements=driver.findElements(By.id(control[1]));
+				break;
+			case "ByCssSelector":
+				webElements=driver.findElements(By.cssSelector(control[1]));
+				break;
+			case "ByName":
+				webElements=driver.findElements(By.name(control[1]));
+				break;
+			case "ByClassName":
+				webElements=driver.findElements(By.className(control[1]));
+				break;
+			case "ByLinkText":
+				webElements=driver.findElements(By.linkText(control[1]));
+				break;
+			case "ByPartialLinkText":
+				webElements=driver.findElements(By.partialLinkText(control[1]));
+				break;
+			case "ByTagName":
+				webElements=driver.findElements(By.tagName(control[1]));
+				break;
+			default :
+				webElements=driver.findElements(By.xpath(control[1]));
+				break;
+			}
+			return webElements;
+		}*/
 
 	/**
 	 * 等待元素出现
@@ -138,29 +138,29 @@ public class AppiumElementAction{
 			throw e;
 		}
 	}
-	//	/**
-	//	 * 查找一组元素
-	//	 * @param locator 元素定位信息
-	//	 * @return
-	//	 */
-	//	public List<WebElement>  waitForElements(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
-	//		List<WebElement>  webElements=null;
-	//		try {
-	//			webElements=(new WebDriverWait(driver, 20)).until(
-	//					new ExpectedCondition<List<WebElement>>() {
-	//						@Override
-	//						public List<WebElement> apply(WebDriver dr) {
-	//							List<WebElement> element = getElements(driver,locator,driverName);
-	//							return element;
-	//						}
-	//					});
-	//			return webElements;
-	//		} catch (Exception e) {
-	//			log.error("设备： "+driverName+" "+"【failed】  等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-	//			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-	//			throw e;
-	//		}
-	//	}
+	/*	*//**
+		 * 查找一组元素
+		 * @param locator 元素定位信息
+		 * @return
+		 *//*
+		public List<WebElement>  waitForElements(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
+			List<WebElement>  webElements=null;
+			try {
+				webElements=(new WebDriverWait(driver, 20)).until(
+						new ExpectedCondition<List<WebElement>>() {
+							@Override
+							public List<WebElement> apply(WebDriver dr) {
+								List<WebElement> element = getElements(driver,locator,driverName);
+								return element;
+							}
+						});
+				return webElements;
+			} catch (Exception e) {
+				log.error("设备： "+driverName+" "+"【failed】  等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+20+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				throw e;
+			}
+		}*/
 
 	public void elementSelectForIndex(AppiumDriver <MobileElement> driver,Object[] locator,String i,String driverName,String sdkVersion){
 		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
