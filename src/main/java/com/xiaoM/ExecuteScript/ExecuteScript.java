@@ -31,6 +31,15 @@ public class ExecuteScript  {
 			if(data.equals("null")){
 				Method method = run.getMethod(MethodName);
 				method.invoke(x);
+			}else if(data.contains(",")){
+				Object[] args = data.split(",");
+				@SuppressWarnings("rawtypes")
+				Class[] argsClass = new Class[args.length];      
+				for (int i = 0, j = args.length; i < j; i++) {      
+					argsClass[i] = args[i].getClass();                 
+				}      
+				Method method = run.getMethod(MethodName,argsClass);
+				method.invoke(x,args);	
 			}else{
 				Method method = run.getMethod(MethodName,String.class);
 				method.invoke(x,data);
@@ -52,18 +61,15 @@ public class ExecuteScript  {
 		}
 	}
 
-	public void Demo(String a){	
-		if(a.contains(",")){
-			datas = a.split(",");
-			for(String data:datas){
-				System.out.println("有多个参数："+ data);	
-			}
-		}else{
-			System.out.println("只有一个参数："+ a);	
-		}
+	public void DemoNoArgs(){
+		System.out.println("无参数方法加载");	
 	}
-	public void DemoNoData(){
-		System.out.println("无参数方法");	
+	public void DemoOneArgs(String a){	
+		System.out.println("只有一个参数："+ a);
+	}
+	public void DemoTwoArgs(String a,String b){
+		System.out.println("第一个参数："+a);	
+		System.out.println("第一个参数："+b);	
 	}
 
 
@@ -80,8 +86,8 @@ public class ExecuteScript  {
 	}
 	public static void main(String[] args) {
 		ExecuteScript a = new ExecuteScript();
-		a.doRun("Demo","wddw");
-		a.doRun("Demo","wddw,sjdjd,sdadwwww");
-		a.doRun("DemoNoData","null");
+		a.doRun("DemoNoArgs","null");
+		a.doRun("DemoOneArgs","This is args one");
+		a.doRun("DemoTwoArgs","参数2,参数3");
 	}
 }
