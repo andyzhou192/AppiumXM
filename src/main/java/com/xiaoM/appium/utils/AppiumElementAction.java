@@ -437,12 +437,7 @@ public class AppiumElementAction{
 		log.info("设备： "+driverName+" "+"执行外部脚本："+locator[5].toString());
 		try {
 			ExecuteScript execute = new ExecuteScript(driver);
-			if(locator[5].toString().contains("::")){
-				execute.doRun(locator[5].toString().split("::")[0],locator[5].toString().split("::")[1]);
-			}else{
-				execute.doRun(locator[5].toString(),"null");
-			}
-			
+			execute.doRun(locator[5].toString());	
 		} catch (Exception e) {
 			log.error("设备： "+driverName+" "+"执行外部脚本："+locator[5].toString()+"失败");
 			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"执行外部脚本："+locator[5].toString()+"失败");

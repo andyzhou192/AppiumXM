@@ -2,9 +2,8 @@ package com.xiaoM.ExecuteScript;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-
-import org.openqa.selenium.JavascriptExecutor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -24,25 +23,33 @@ public class ExecuteScript  {
 	 * @param MethodName 方法名
 	 * @param data 指定参数
 	 */
-	public void doRun(String MethodName ,String data){
+	public void doRun(String MethodName){
 		try {
 			Class< ? > run = Class.forName("com.xiaoM.ExecuteScript.ExecuteScript");	 
 			Object x = run.newInstance(); 
-			if(data.equals("null")){
+			if(MethodName.contains("(")){  
+				Pattern p = Pattern.compile("(?<=\\()(.+?)(?=\\))"); 
+				Matcher m = p.matcher(MethodName); 
+				String data = null;
+				while(m.find()) { 
+					data = m.group().replace("\"", "");
+				}
+				if(data.contains(",")){
+					Object[] args = data.split(",");
+					@SuppressWarnings("rawtypes")
+					Class[] argsClass = new Class[args.length];      
+					for (int i = 0, j = args.length; i < j; i++) {      
+						argsClass[i] = args[i].getClass();                 
+					}      
+					Method method = run.getMethod(MethodName.split("\\(")[0],argsClass);
+					method.invoke(x,args);	
+				}else{
+					Method method = run.getMethod(MethodName.split("\\(")[0],String.class);
+					method.invoke(x,data);
+				}	
+			}else{
 				Method method = run.getMethod(MethodName);
 				method.invoke(x);
-			}else if(data.contains(",")){
-				Object[] args = data.split(",");
-				@SuppressWarnings("rawtypes")
-				Class[] argsClass = new Class[args.length];      
-				for (int i = 0, j = args.length; i < j; i++) {      
-					argsClass[i] = args[i].getClass();                 
-				}      
-				Method method = run.getMethod(MethodName,argsClass);
-				method.invoke(x,args);	
-			}else{
-				Method method = run.getMethod(MethodName,String.class);
-				method.invoke(x,data);
 			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -61,6 +68,18 @@ public class ExecuteScript  {
 		}
 	}
 
+//	public void iosDemo(){
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		HashMap<String, String> scrollObject = new HashMap<String, String>();
+//		scrollObject.put("direction", "down");
+//		js.executeScript("mobile: scroll", scrollObject);
+//
+//	}
+//	@SuppressWarnings("deprecation")
+//	public void  iosDemo2(){
+//		driver.tap(1, 8, 349, 1000);//坐标点击
+//	}
+	
 	public void DemoNoArgs(){
 		System.out.println("无参数方法加载");	
 	}
@@ -71,23 +90,11 @@ public class ExecuteScript  {
 		System.out.println("第一个参数："+a);	
 		System.out.println("第一个参数："+b);	
 	}
-
-
-	public void iosDemo(){
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		HashMap<String, String> scrollObject = new HashMap<String, String>();
-		scrollObject.put("direction", "down");
-		js.executeScript("mobile: scroll", scrollObject);
-
-	}
-	@SuppressWarnings("deprecation")
-	public void  iosDemo2(){
-		driver.tap(1, 8, 349, 1000);//坐标点击
-	}
+	
 	public static void main(String[] args) {
 		ExecuteScript a = new ExecuteScript();
-		a.doRun("DemoNoArgs","null");
-		a.doRun("DemoOneArgs","This is args one");
-		a.doRun("DemoTwoArgs","参数2,参数3");
+		a.doRun("DemoNoArgs");
+		a.doRun("DemoOneArgs(\"This is args one\")");
+		a.doRun("DemoTwoArgs(\"参数1\",\"参数2\")");
 	}
 }
