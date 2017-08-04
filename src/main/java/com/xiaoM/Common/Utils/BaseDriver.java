@@ -119,13 +119,14 @@ public class BaseDriver {
 						capabilities.setCapability("resetKeyboard", "True");
 					}else{
 						AppiumServer = new AppiumServerUtils();
-						url = AppiumServer.startServer(ipAddress,Port);
+						url = AppiumServer.startIosWapServer(ipAddress,Port);
 						capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 						capabilities.setCapability(CapabilityType.BROWSER_NAME, Browser);// Browser
 						capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
 						capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
 						capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sdkVersion);
-						capabilities.setCapability(MobileCapabilityType.UDID, deviceId);
+						capabilities.setCapability(IOSMobileCapabilityType.START_IWDP, true);
+						capabilities.setCapability(MobileCapabilityType.UDID, deviceId);	
 					}
 					driver = new AppiumDriver <MobileElement>(url, capabilities);
 			} catch (Exception e) {

@@ -71,6 +71,19 @@ public class AppiumServerUtils {
 		return service.getUrl();
 	}
 	
+	public URL startIosWapServer(String ipAddress,int port) {
+		AppiumServiceBuilder builder = new AppiumServiceBuilder();
+		builder.withIPAddress(ipAddress);
+		builder.usingPort(port);
+//		builder.withArgument(IOSServerFlag.WEBKIT_DEBUG_PROXY_PORT, "27753");
+		service = AppiumDriverLocalService.buildService(builder);
+		service.start();
+		if (service == null || !service.isRunning()) {
+			throw new RuntimeException("An appium server node is not started!");
+		}
+		return service.getUrl();
+	}
+	
 	public void stopServer(){
 		if(service!=null){
 			 service.stop();
