@@ -1,11 +1,11 @@
 package com.xiaoM.ExecuteScript;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 
 public class ExecuteScript  {
@@ -25,8 +25,7 @@ public class ExecuteScript  {
 	 */
 	public void doRun(String MethodName){
 		try {
-			Class< ? > run = Class.forName("com.xiaoM.ExecuteScript.ExecuteScript");	 
-			Object x = run.newInstance(); 
+			Class< ? extends ExecuteScript> run = this.getClass();
 			if(MethodName.contains("(")){  
 				Pattern p = Pattern.compile("(?<=\\()(.+?)(?=\\))"); 
 				Matcher m = p.matcher(MethodName); 
@@ -41,15 +40,12 @@ public class ExecuteScript  {
 					for (int i = 0, j = args.length; i < j; i++) {      
 						argsClass[i] = args[i].getClass();                 
 					}      
-					Method method = run.getMethod(MethodName.split("\\(")[0],argsClass);
-					method.invoke(x,args);	
+					run.getMethod(MethodName.split("\\(")[0],argsClass).invoke(this,args);	
 				}else{
-					Method method = run.getMethod(MethodName.split("\\(")[0],String.class);
-					method.invoke(x,data);
+					run.getMethod(MethodName.split("\\(")[0],String.class).invoke(this,data);
 				}	
 			}else{
-				Method method = run.getMethod(MethodName);
-				method.invoke(x);
+				run.getMethod(MethodName).invoke(this);
 			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -61,10 +57,6 @@ public class ExecuteScript  {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {	
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -75,10 +67,13 @@ public class ExecuteScript  {
 //		js.executeScript("mobile: scroll", scrollObject);
 //
 //	}
-//	@SuppressWarnings("deprecation")
-//	public void  iosDemo2(){
-//		driver.tap(1, 8, 349, 1000);//坐标点击
-//	}
+	public void  iosDemo() throws InterruptedException{
+//		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);              
+		driver.findElement(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND value == 'QQ邮箱' AND name == 'QQ邮箱'")).click();
+		Thread.sleep(5000);
+		driver.findElement(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeTextField' AND value == '支持QQ号/邮箱/手机号登录'")).click();
+		driver.findElement(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeTextField' AND value == '支持QQ号/邮箱/手机号登录'")).sendKeys("1025165571");
+	}
 	
 	public void DemoNoArgs(){
 		System.out.println("无参数方法加载");	
@@ -93,7 +88,7 @@ public class ExecuteScript  {
 	
 	public static void main(String[] args) {
 		ExecuteScript a = new ExecuteScript();
-		a.doRun("DemoNoArgs");
+		a.doRun("iosDemo");
 		a.doRun("DemoOneArgs(\"This is args one\")");
 		a.doRun("DemoTwoArgs(\"参数1\",\"参数2\")");
 	}

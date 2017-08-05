@@ -23,6 +23,7 @@ import com.xiaoM.ExecuteScript.ExecuteScript;
 import com.xiaoM.Report.utils.TestListener;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
@@ -35,41 +36,39 @@ public class AppiumElementAction{
 
 	public Log log=new Log(this.getClass());
 	private static Map<String, String> map = new HashMap<String, String>();
-	public WebElement getElement(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
+	public MobileElement getElement(AppiumDriver <MobileElement> driver,Object[] locator,String driverName){
 		String[] control = locator[5].toString().split("::");
 		log.info("设备： "+driverName+" "+"查找元素："+locator[3].toString()+" 方式 :  "+control[0]+" [ "+control[1]+" ]");
-		WebElement webElement;
+		MobileElement MobileElement = null;
 		switch (control[0]){
 		case "ByXpath" :
-			webElement=driver.findElement(By.xpath(control[1]));
+			MobileElement=driver.findElement(By.xpath(control[1]));
 			break;
 		case "ById":
-			webElement=driver.findElement(By.id(control[1]));
+			MobileElement=driver.findElement(By.id(control[1]));
 			break;
 		case "ByCssSelector":
-			webElement=driver.findElement(By.cssSelector(control[1]));
+			MobileElement=driver.findElement(By.cssSelector(control[1]));
 			break;
 		case "ByName":
-			webElement=driver.findElement(By.name(control[1]));
+			MobileElement=driver.findElement(By.name(control[1]));
 			break;
 		case "ByClassName":
-			webElement=driver.findElement(By.className(control[1]));
+			MobileElement=driver.findElement(By.className(control[1]));
 			break;
 		case "ByLinkText":
-			webElement=driver.findElement(By.linkText(control[1]));
+			MobileElement=driver.findElement(By.linkText(control[1]));
 			break;
 		case "ByPartialLinkText":
-			webElement=driver.findElement(By.partialLinkText(control[1]));
+			MobileElement=driver.findElement(By.partialLinkText(control[1]));
 			break;
 		case "ByTagName":
-			webElement=driver.findElement(By.tagName(control[1]));
+			MobileElement=driver.findElement(By.tagName(control[1]));
 			break;
-		default :
-			webElement=driver.findElement(By.xpath(control[1]));
-			break;
-
+		case "ByIOSNsPredicateString":
+			MobileElement=driver.findElement(MobileBy.iOSNsPredicateString(control[1]));
 		}
-		return webElement;
+		return MobileElement;
 	}
 
 	/*	*//**
@@ -113,30 +112,40 @@ public class AppiumElementAction{
 			}
 			return webElements;
 		}*/
-
 	/**
 	 * 等待元素出现
 	 * @param by
 	 * @param timeout
 	 * @return
 	 */
-	public WebElement waitForElement(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
-		WebElement webElement=null;
-		int i = Integer.valueOf(locator[6].toString());
-		try {
-			webElement=(new WebDriverWait(driver, i)).until(
-					new ExpectedCondition<WebElement>() {
-						@Override
-						public WebElement apply(WebDriver dr) {
-							return  getElement(driver,locator,driverName);
-						}
-					});
-			return webElement;
-		} catch (Exception e) {
-			log.error("设备： "+driverName+" "+"【failed】  等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-			TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
-			throw e;
+	public MobileElement waitForElement(final AppiumDriver <MobileElement> driver,final Object[] locator,final String driverName,String sdkVersion){
+		MobileElement MobileElement=null;
+		if(locator[6].toString().isEmpty()||locator[6].toString().equals("0")){
+			try {
+				MobileElement = getElement(driver,locator,driverName);
+			} catch (Exception e) {
+				log.error("设备： "+driverName+" "+"【failed】找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				throw e;
+			}
+		}else{
+			int i = Integer.valueOf(locator[6].toString());
+			try {
+				MobileElement=(new WebDriverWait(driver, i)).until(
+						new ExpectedCondition<MobileElement>() {
+							@Override
+							public MobileElement apply(WebDriver dr) {
+								return  getElement(driver,locator,driverName);
+							}
+						});
+				return MobileElement;
+			} catch (Exception e) {
+				log.error("设备： "+driverName+" "+"【failed】  等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				TestListener.messageList.add(driverName+"(系统版本："+sdkVersion+"):::"+"等待:"+i+"s 找不到元素："+locator[3].toString()+" 方式  "+locator[4].toString()+":[ "+locator[5].toString()+" ]");
+				throw e;
+			}
 		}
+		return MobileElement;
 	}
 	/*	*//**
 		 * 查找一组元素
@@ -163,7 +172,7 @@ public class AppiumElementAction{
 		}*/
 
 	public void elementSelectForIndex(AppiumDriver <MobileElement> driver,Object[] locator,String i,String driverName,String sdkVersion){
-		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
+		MobileElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		int index = Integer.valueOf(i);
 		Select select = new Select(webElement);
 		try {
@@ -188,7 +197,7 @@ public class AppiumElementAction{
 		}
 	}
 	public void elementSelectForValue(AppiumDriver <MobileElement> driver,Object[] locator,String value,String driverName,String sdkVersion){
-		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
+		MobileElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		Select select = new Select(webElement);
 		try {
 			select.selectByValue(value);
@@ -223,7 +232,7 @@ public class AppiumElementAction{
 	 * @param locator
 	 */
 	private void elementExport(AppiumDriver <MobileElement> driver, Object[] locator,String driverName,String sdkVersion) {
-		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
+		MobileElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		String text = null;
 		try {
 			text = webElement.getText();
@@ -237,7 +246,7 @@ public class AppiumElementAction{
 	}
 
 	private void elementIncoming(AppiumDriver <MobileElement> driver, Object[] locator,String driverName,String sdkVersion) {
-		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
+		MobileElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		String text =null;
 		try {
 			text = map.get(locator[8].toString()).toString();
@@ -254,11 +263,12 @@ public class AppiumElementAction{
 	 * @param locator
 	 */
 	public void elementOperation(AppiumDriver <MobileElement> driver,Object[] locator,String driverName,String sdkVersion){
-		WebElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
+		MobileElement webElement =  waitForElement(driver,locator,driverName,sdkVersion);
 		switch (locator[7].toString()){
 		case "sendKeys" :
 			try {
 				log.info("设备： "+driverName+" "+"输入："+ locator[8].toString());
+				webElement.click();
 				webElement.sendKeys(locator[8].toString());
 			} catch (Exception e) {
 				log.error("设备： "+driverName+" "+"控件输入失败！");
