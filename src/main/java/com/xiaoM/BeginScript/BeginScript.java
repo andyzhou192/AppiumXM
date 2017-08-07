@@ -11,8 +11,8 @@ import com.xiaoM.Report.utils.TestListener;
 
 
 public class BeginScript{
-	
-	@DataProvider(parallel = true)
+	//@DataProvider(parallel = true) 单份用例多台设备共同执行
+	@DataProvider
 	public Object[][]Testcases() throws IOException{
 		return TestListener.RunCase;
 	}
