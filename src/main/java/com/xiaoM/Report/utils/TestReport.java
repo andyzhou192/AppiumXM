@@ -71,7 +71,7 @@ public class TestReport implements IReporter {
 		extent.setSystemInfo("User Name",System.getProperty("user.name"));
 		extent.setSystemInfo("Java Version", System.getProperty("java.version"));
 		extent.setSystemInfo("Appium Version", AppiumComm.getAppiumVersion());
-		extent.setSystemInfo("Appium Version", TerminalCommandUtils.executeCommand("node -v").replaceAll("v", ""));
+		extent.setSystemInfo("Node Version", TerminalCommandUtils.executeCommand("node -v").replaceAll("v", ""));
 		extent.setReportUsesManualConfiguration(true);
 	}  
 	private void buildTestNodes(IResultMap tests, Status status) {
